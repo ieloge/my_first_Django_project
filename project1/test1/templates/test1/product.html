@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <!-- call navbar.html -->
+    {% include 'test1/navbar.html' %}
+    <!-- and navbar -->
+
+    <div class="container mt-5">
+    <h1 class="alert alert-primary text-center">Our Products</h1>
+    
+    <!-- 1. Open the row BEFORE the loop starts -->
+    <div class="row mb-4">
+        
+        {% for x in page_obj %}
+            <!-- 2. The column wraps just the product card inside the loop -->
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="card">
+                    <img src="{{x.product_img.url}}" class="card-img-top img-fluid" alt="..." style="max-width: 100%; max-height: 260px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{x.product_name}}</h5>
+                        <p class="card-text">{{x.product_description}}</p>
+                        <a href="#" class="btn btn-primary">{{x.product_category}}, {{x.product_id}}</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+    <!-- 3. Close the row AFTER the loop ends -->
+    </div>
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+    </div>
+
+    <!-- footer section start here -->
+     {% include 'test1/footer.html' %}
+     <!-- footer section end here -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</html>
